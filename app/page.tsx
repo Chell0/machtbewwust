@@ -1,7 +1,14 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Welcome To MachtBewwust Blog Website
-    </main>
+    <>
+      <div
+        className="relative bg-cover bg-no-repeat bg-local"
+        style={{ backgroundImage: `url("/homepage-bg.png")` }}
+      >
+        <main className={`p-6`}>
+          Welcome HomePage
+        </main>
+      </div>
+    </>
   );
 }
