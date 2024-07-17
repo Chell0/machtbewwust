@@ -1,3 +1,5 @@
+import NavBar from "@/components/NavBar/NavBar";
+
 export default function Page() {
 
     return (
@@ -7,6 +9,7 @@ export default function Page() {
                 style={{ backgroundImage: `url("/kalender-bg.jpg")` }}
             >
                 <main className="p-6">
+                    <NavBar />
                     Kalender Page
                 </main>
             </div>

@@ -1,3 +1,5 @@
+import NavBar from "@/components/NavBar/NavBar";
+
 export default function Home() {
   return (
     <>
@@ -6,7 +8,7 @@ export default function Home() {
         style={{ backgroundImage: `url("/homepage-bg.png")` }}
       >
         <main className={`p-6`}>
-          Welcome HomePage
+          <NavBar />
         </main>
       </div>
     </>
