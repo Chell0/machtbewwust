@@ -1,5 +1,6 @@
 import About from "@/components/About/About";
 import Banner from "@/components/Banner/Banner";
+import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import NewsLetter from "@/components/Newsletter/Newsletter";
 import ShowMoreButton from "@/components/ShowMoreButton/ShowMoreButton";
@@ -32,6 +33,7 @@ export default function Home() {
           <div className={` flex flex-row justify-center mt-10`}>
             <NewsLetter />
           </div>
+          <Footer />
         </main>
       </div>
     </>
