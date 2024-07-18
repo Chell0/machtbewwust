@@ -1,6 +1,7 @@
 import About from "@/components/About/About";
 import Banner from "@/components/Banner/Banner";
 import NavBar from "@/components/NavBar/NavBar";
+import NewsLetter from "@/components/Newsletter/Newsletter";
 
 
 export default function Home() {
@@ -19,6 +20,11 @@ export default function Home() {
           {/* About Section */}
           <div className={`flex items-center justify-center p-4 mt-20`}>
             <About />
+          </div>
+
+          {/* Newsletter Section */}
+          <div className={` flex flex-row justify-center mt-10`}>
+            <NewsLetter />
           </div>
         </main>
       </div>
