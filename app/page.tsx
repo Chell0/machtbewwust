@@ -1,4 +1,5 @@
 import About from "@/components/About/About";
+import Banner from "@/components/Banner/Banner";
 import NavBar from "@/components/NavBar/NavBar";
 
 
@@ -10,8 +11,15 @@ export default function Home() {
           {/* Navigation Section */}
           <NavBar />
 
+          {/* Banner Section */}
+          <div className={`flex items-center justify-center mt-20`}>
+            <Banner />
+          </div>
+
           {/* About Section */}
-          <About />
+          <div className={`flex items-center justify-center p-4 mt-20`}>
+            <About />
+          </div>
         </main>
       </div>
     </>
