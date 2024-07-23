@@ -54,3 +54,8 @@ export interface MaterialCategory {
 	title: string;
 	materials: MaterialCard[];
 }
+
+// Section
+export interface SectionProps {
+	materials: MaterialCard[];
+}
