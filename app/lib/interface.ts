@@ -20,3 +20,13 @@ export interface ThemenPost {
 		specialty: string;
 	}[];
 }
+
+// Datenbank
+export interface Venue {
+	name: string;
+	ansprechperson: string;
+	kontakt: string;
+	angebote: string;
+	kategorien: string[];
+	website: string;
+}
