@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { TagsProps } from "@/app/lib/interface";
 
-export default function Tags() {
+export default function Tags({ onTagSelect, tags }: TagsProps) {
     const [selectedTag, setSelectedTag] = useState<string | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleTagClick = (tag: string | null) => {
         setSelectedTag(tag);
+        onTagSelect(tag);
         setIsDropdownOpen(false);
     };
 
@@ -26,11 +28,15 @@ export default function Tags() {
                 >
                     View All
                 </button>
-                <button
-                    className={`capitalize italic text-sm rounded-lg shadow-xl py-1 px-2`}
-                >
-                    # title
-                </button>
+                {tags.map((tag, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleTagClick(tag.title)}
+                        className={`${selectedTag === tag.title ? "bg-orange-500 text-white" : "bg-white text-orange-600"} capitalize italic text-sm rounded-lg shadow-xl py-1 px-2`}
+                    >
+                        #{tag.title}
+                    </button>
+                ))}
             </div>
             <div className="md:hidden mb-4">
                 <button
@@ -48,11 +54,19 @@ export default function Tags() {
                         >
                             View All
                         </button>
-                        <button
-                            className={`block w-full text-left capitalize px-4 py-2`}
-                        >
-                            # title
-                        </button>
+                        {tags.map((tag, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleTagClick(tag.title)}
+                                className={`block w-full text-left capitalize px-4 py-2
+                                    ${selectedTag === tag.title
+                                        ? "bg-orange-500 text-white"
+                                        : "text-orange-500"
+                                    }`}
+                            >
+                                #{tag.title}
+                            </button>
+                        ))}
                     </div>
                 )}
             </div>

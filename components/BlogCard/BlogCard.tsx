@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ThemenCard } from "@/app/lib/interface";
+import { urlFor } from "@/app/lib/sanityClient";
 
 
-export default function BlogCard() {
+export default function BlogCard({ card }: { card: ThemenCard }) {
 
     const { title, smallDescription, currentSlug, titleImage } = card;
 
@@ -12,7 +14,7 @@ export default function BlogCard() {
             <div className="bg-white max-w-screen-lg rounded-lg shadow-xl overflow-hidden">
                 <div className="relative w-full h-56">
                     <Image
-                        src={titleImage}
+                        src={urlFor(titleImage).url()}
                         alt={title}
                         fill={true}
                         className={`rounded-t-lg object-cover overflow-hidden`} />
