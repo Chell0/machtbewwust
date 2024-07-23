@@ -1,0 +1,36 @@
+import Image from "next/image";
+import Link from "next/link";
+
+
+export default function MaterialCards() {
+
+    return (
+        <>
+            <div className="bg-amber-50 h-[450px] max-w-screen-lg rounded-lg shadow-lg overflow-hidden">
+                <div className="bg-white flex justify-center items-center relative w-full h-56">
+                    <Image
+                        src={``}
+                        alt={``}
+                        height={150}
+                        width={150}
+                        style={{ maxHeight: `240px` }}
+                        quality={100}
+                        className={`rounded-t-lg object-cover overflow-hidden`}
+                    />
+                </div>
+                <div className="bg-amber-50 p-5">
+                    <h3 className="text-orange-500 text-lg font-semibold mb-3 cursor-pointer hover:underline line-clamp-4">
+                        <Link
+                            href={``}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            title
+                        </Link>
+                    </h3>
+                    <p className="text-gray-600 text-xs mb-2 line-clamp-4">smallDescription</p>
+                </div>
+            </div>
+        </>
+    );
+}
