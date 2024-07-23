@@ -40,3 +40,11 @@ export interface Event {
 	type: string;
 	detailsLink: string;
 }
+
+// MaterialCard
+export interface MaterialCard {
+	title: string;
+	titleImage: string;
+	smallDescription: string;
+	links: string;
+}
