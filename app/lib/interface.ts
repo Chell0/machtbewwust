@@ -48,3 +48,9 @@ export interface MaterialCard {
 	smallDescription: string;
 	links: string;
 }
+
+// MaterialCategory
+export interface MaterialCategory {
+	title: string;
+	materials: MaterialCard[];
+}
