@@ -59,3 +59,14 @@ export interface MaterialCategory {
 export interface SectionProps {
 	materials: MaterialCard[];
 }
+
+// Tags
+export interface allTags {
+	title: string;
+}
+
+// TagsProps
+export interface TagsProps {
+	onTagSelect: (selectedTag: string | null) => void;
+	tags: allTags[];
+}
