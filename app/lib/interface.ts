@@ -30,3 +30,13 @@ export interface Venue {
 	kategorien: string[];
 	website: string;
 }
+
+// Kalender
+export interface Event {
+	date: string;
+	time: string;
+	title: string;
+	description: string;
+	type: string;
+	detailsLink: string;
+}
