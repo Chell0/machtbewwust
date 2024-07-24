@@ -1,3 +1,5 @@
+import Datenbank from "@/components/Datenbank/Datenbank";
+import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 
 export default function Page() {
@@ -10,7 +12,8 @@ export default function Page() {
             >
                 <main className="p-6">
                     <NavBar />
-                    Datenbank
+                    <Datenbank />
+                    <Footer />
                 </main>
             </div>
         </>

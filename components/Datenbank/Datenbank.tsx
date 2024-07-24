@@ -1,7 +1,48 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { client } from "@/app/lib/sanityClient";
+import { Venue } from "@/app/lib/interface";
 
 
 export default function Datenbank() {
+    const [venues, setVenues] = useState<Venue[]>([]);
+    const [filteredVenues, setFilteredVenues] = useState<Venue[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [categories, setCategories] = useState<string[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+    useEffect(() => {
+        const fetchVenues = async () => {
+            const query = `*[_type == "datenbank"] { name, kontakt, angebote, kategorien, website }`;
+            const result = await client.fetch(query);
+
+            // Sort the venues alphabetically by name
+            result.sort((a: Venue, b: Venue) => a.name.localeCompare(b.name));
+            setVenues(result);
+            setFilteredVenues(result);
+            setLoading(false);
+
+            // Extract unique categories
+            const uniqueCategories = Array.from(
+                new Set(result.flatMap((venue: Venue) => venue.kategorien))
+            ) as string[];
+            setCategories(uniqueCategories);
+        };
+        fetchVenues();
+    }, []);
+
+    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const category = event.target.value;
+        setSelectedCategory(category);
+
+        if (category === "") {
+            setFilteredVenues(venues);
+        } else {
+            setFilteredVenues(venues.filter((venue) => venue.kategorien.includes(category)));
+        }
+    };
 
     return (
         <>
@@ -38,11 +79,13 @@ export default function Datenbank() {
 
                 {/* Search Box */}
                 <div className="flex justify-center mt-10">
-                    <select className="bg-white p-2 border border-orange-300 text-xs rounded-lg">
+                    <select className="bg-white p-2 border border-orange-300 text-xs rounded-lg" value={selectedCategory} onChange={handleCategoryChange}>
                         <option value="">Alle Kategorien</option>
-                        <>
-                            <option className="text-orange-500 text-xs py-5 bg-white" value={``}># Category</option>
-                        </>
+                        {categories.map((category, index) => (
+                            <>
+                                <option className="text-orange-500 text-xs py-5 bg-white" key={index} value={category}># {category}</option>
+                            </>
+                        ))}
                     </select>
                 </div>
 
@@ -78,27 +121,40 @@ export default function Datenbank() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-300">
-                            <tr>
-                                <td className="px-5 py-4 text-wrap md:text-balance text-xs font-medium text-gray-900">
-                                    Name
-                                </td>
-                                <td className="px-5 py-4 text-wrap md:text-balance text-xs text-gray-600 border-l border-gray-300">
-                                    Kontakt
-                                </td>
-                                <td className="px-5 py-4 text-wrap md:text-balance text-xs text-gray-600 border-l border-gray-300">
-                                    Angebote
-                                </td>
-                                <td className="px-5 py-4 text-wrap md:text-balance text-xs text-gray-600 border-l border-gray-300">
-                                    <Link
-                                        href={`website`}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-orange-500 hover:text-gray-600"
+                            {loading ? (
+                                <tr>
+                                    <td
+                                        colSpan={5}
+                                        className="px-6 py-4 text-center text-gray-600"
                                     >
-                                        Website
-                                    </Link>
-                                </td>
-                            </tr>
+                                        Loading...
+                                    </td>
+                                </tr>
+                            ) : (
+                                filteredVenues.map((venue, index) => (
+                                    <tr key={index}>
+                                        <td className="px-5 py-4 text-wrap md:text-balance text-xs font-medium text-gray-900">
+                                            {venue.name}
+                                        </td>
+                                        <td className="px-5 py-4 text-wrap md:text-balance text-xs text-gray-600 border-l border-gray-300">
+                                            {venue.kontakt}
+                                        </td>
+                                        <td className="px-5 py-4 text-wrap md:text-balance text-xs text-gray-600 border-l border-gray-300">
+                                            {venue.angebote}
+                                        </td>
+                                        <td className="px-5 py-4 text-wrap md:text-balance text-xs text-gray-600 border-l border-gray-300">
+                                            <Link
+                                                href={venue.website}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="text-orange-500 hover:text-gray-600"
+                                            >
+                                                {venue.website}
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
