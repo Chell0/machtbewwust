@@ -1,7 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
+import { differenceInDays, parseISO } from "date-fns";
+import { client } from "@/app/lib/sanityClient";
+import { Event } from "@/app/lib/interface";
 
 
 export const revalidate = 30;
@@ -11,10 +15,47 @@ export default function Kalender() {
     const [openEventIndex, setOpenEventIndex] = useState<number | null>(null);
     const [filter, setFilter] = useState<string>("");
 
+    useEffect(() => {
+        const fetchEvents = async () => {
+            const eventsData = await client.fetch(
+                `*[_type == "event"] | order(date asc) {
+                date,
+                    time,
+                    title,
+                    description,
+                    type,
+                    detailsLink
+                }`,
+            );
+            const currentDate = new Date();
+            const currentEvents = eventsData.filter((event: Event) => {
+                const eventDate = parseISO(event.date);
+                return differenceInDays(eventDate, currentDate) >= 0;
+            });
+
+            const pastEvents = eventsData.filter((event: Event) => {
+                const eventDate = parseISO(event.date);
+                return differenceInDays(eventDate, currentDate) < 0;
+            });
+
+            // Delete past events from Sanity
+            pastEvents.forEach(async (event: Event) => {
+                await client.delete(event.date);
+            });
+
+            setEvents(currentEvents);
+        };
+
+        fetchEvents();
+    }, []);
 
     const toggleEvent = (index: number) => {
         setOpenEventIndex(openEventIndex === index ? null : index);
     };
+
+    const filteredEvents = events.filter((event) =>
+        event.title.toLowerCase().includes(filter.toLowerCase()),
+    );
 
     return (
         <>
@@ -47,35 +88,49 @@ export default function Kalender() {
                     onChange={(e) => setFilter(e.target.value)}
                     className="mb-6 mt-20 p-2 border border-gray-300 rounded-lg w-full"
                 />
-                <div className="mb-4 bg-orange-500 text-white p-4 rounded-lg shadow-lg">
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <div className="text-xl font-bold">title</div>
-                            <div className="text-sm text-gray-800">type</div>
-                            <div className="text-sm">
-                                date, time
-                            </div>
-                        </div>
-                        <button></button>
-                    </div>
+                {filteredEvents.map((event, index) => (
                     <div
-                        className={`transition-all duration-300 overflow-hidden`}>
-                        <div className="mt-2 bg-white p-2 rounded">
-                            <p className="text-gray-600 text-sm">description</p>
-                            <Link
-                                href={``}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mt-2 inline-flex items-center text-orange-500 hover:text-gray-600"
-                            >
-                                details
-                                <span className="inline-block ml-2 transition-transform transform group-hover:translate-x-l">
-                                    &rarr;
-                                </span>
-                            </Link>
+                        key={index}
+                        className="mb-4 bg-orange-500 text-white p-4 rounded-lg shadow-lg"
+                    >
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <div className="text-xl font-bold">{event.title}</div>
+                                <div className="text-sm text-gray-800">{event.type}</div>
+                                <div className="text-sm">
+                                    {event.date}, {event.time}
+                                </div>
+                            </div>
+                            <button onClick={() => toggleEvent(index)}>
+                                {openEventIndex === index ? (
+                                    <ChevronUpIcon className="h-6 w-6 text-white" />
+                                ) : (
+                                    <ChevronDownIcon className="h-6 w-6 text-white" />
+                                )}
+                            </button>
+                        </div>
+                        <div
+                            className={`transition-all duration-300 overflow-hidden ${openEventIndex === index ? "max-h-screen" : "max-h-0"}`}
+                        >
+                            {openEventIndex === index && (
+                                <div className="mt-2 bg-white p-2 rounded">
+                                    <p className="text-gray-600 text-sm">{event.description}</p>
+                                    <Link
+                                        href={event.detailsLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-2 inline-flex items-center text-orange-500 hover:text-gray-600"
+                                    >
+                                        details
+                                        <span className="inline-block ml-2 transition-transform transform group-hover:translate-x-l">
+                                            &rarr;
+                                        </span>
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
         </>
     );
