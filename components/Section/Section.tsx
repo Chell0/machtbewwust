@@ -5,9 +5,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MaterialCards from "../MaterialCards/MaterialCards";
+import { SectionProps } from "@/app/lib/interface";
 
 
-export default function Section() {
+export default function Section({ materials }: SectionProps) {
     const settings = {
         dots: true,
         infinite: true,
@@ -45,11 +46,11 @@ export default function Section() {
         <>
             <div className="w-3/4 m-auto mt-5">
                 <Slider {...settings}>
-                    <div
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-4 px-4"
-                    >
-                        <MaterialCards />
-                    </div>
+                    {materials.map((material) => (
+                        <div key={material.title} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-4 px-4">
+                            <MaterialCards card={material} />
+                        </div>
+                    ))}
                 </Slider>
             </div>
         </>
