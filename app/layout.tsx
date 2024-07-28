@@ -5,9 +5,18 @@ import "../styles/globals.css";
 const open = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MachtBewusst",
-  description: "Build by Kazifiti",
-  keywords: ["machtbewusst", "dekolonisierung", "hamburg"],
+  title: "MachtBewusst-Hamburg",
+  description: "Welcome to MachtBewusst-Hamburg Blog! Highlighting engagement and projects in Hamburg's decolonization process.",
+  keywords: [
+    "machtbewusst",
+    "decolonization",
+    "Hamburg",
+    "civil society",
+    "engagement",
+    "projects",
+    "power-critical perspectives",
+    "decolonial perspectives"
+  ]
 };
 
 export default function RootLayout({
