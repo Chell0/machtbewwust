@@ -1,10 +1,10 @@
-# MachtBewwust Blog Website
+# MachtBewwust - Hamburg Website
 
-Welcome to the MachtBewwust Blog Website! This project is a modern, dynamic blog website built using Sanity as the headless CMS and Next.js for the frontend.
+Welcome to the MachtBewwust - Hamburg Website! This project is a modern, dynamic website built using Sanity as the headless CMS and Next.js for the frontend.
 
 ## Table of Contents
 
-- [MachtBewwust Blog Website](#machtbewwust-blog-website)
+- [MachtBewwust - Hamburg Website](#machtbewwust---hamburg-website)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
@@ -20,7 +20,7 @@ Welcome to the MachtBewwust Blog Website! This project is a modern, dynamic blog
 
 ## Introduction
 
-The MachtBewwust Blog Website is designed to provide a seamless blogging experience, allowing authors to create and manage content efficiently. The website leverages Sanity's powerful content management capabilities and Next.js's performance-oriented framework.
+The MachtBewwust - Hamburg Website is designed to provide a seamless blogging experience, allowing authors to create and manage content efficiently. The website leverages Sanity's powerful content management capabilities and Next.js's performance-oriented framework.
 
 ## Features
 
