@@ -11,7 +11,7 @@ async function fetchCategories() {
     const query = `
     *[_type == "category"] | order(title asc) {
         title,
-        "materials": *[_type == "material" && references(^._id)]{
+        "materials": *[_type == "material" && references(^._id)] {
             title,
             "titleImage": titleImage.asset->url,
             smallDescription,
@@ -19,18 +19,22 @@ async function fetchCategories() {
         }
     }`;
 
-    const categories = await client.fetch(query);
-    return categories;
+    try {
+        return await client.fetch(query);
+    } catch (error) {
+        console.error("Failed to fetch categories:", error);
+        return [];
+    }
 }
 
 export default function Category() {
     const [categories, setCategories] = useState<MaterialCategory[]>([]);
 
     useEffect(() => {
-        async function getData() {
+        const getData = async () => {
             const data = await fetchCategories();
             setCategories(data);
-        }
+        };
 
         getData();
     }, []);
@@ -38,7 +42,7 @@ export default function Category() {
     return (
         <>
             {categories.map((category) => (
-                <div key={category.title}>
+                <div key={category.title} className="mb-8">
                     <div className="w-full flex items-center justify-center mt-28 sm:px-2">
                         <div className="bg-white shadow-lg rounded-xl max-w-md sm:px-4">
                             <h2 className="text-orange-500 py-2 px-4 text-xl lg:text-2xl md:text-md sm:text-sm font-bold text-center">
@@ -47,7 +51,10 @@ export default function Category() {
                         </div>
                     </div>
                     <Section materials={category.materials.slice(0, 6)} />
-                    <ShowMoreButton href={`/${category.title.toLowerCase().replace(/\s+/g, "-")}`} label={"Mehr"} />
+                    <ShowMoreButton
+                        href={`/${category.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        label="Mehr"
+                    />
                 </div>
             ))}
         </>
