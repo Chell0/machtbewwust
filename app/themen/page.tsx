@@ -59,7 +59,7 @@ export default function BlogPage() {
         <div className="relative bg-cover bg-no-repeat bg-local" style={{ backgroundImage: `url("/themen-bg.png")` }}>
             <main className="p-6">
                 <NavBar />
-                <section className="bg-white p-5 m-1 rounded-xl shadow-lg mt-10">
+                <section className="bg-white p-5 m-1 rounded-xl shadow-lg mt-10 mb-10">
                     <h1 className="text-orange-500 text-3xl font-bold p-3">Themen</h1>
                     <p className="text-gray-600 text-md p-3">
                         Die Themenseite befasst sich mit den aktuellen Geschehnissen und Entwicklungen rund um das Thema Dekolonisierung in Hamburg. Erfahrt hier mehr über die Bewegungen, Initiativen und Diskussionen, die darauf abzielen, Koloniale Kontinuitäten zu hinterfragen und neue dekoloniale Perspektiven aufzuzeigen. Bei Interesse an einem Beitrag schreibt uns gerne eine E-Mail an machtbewusst[at]ossara.de. Viel Spaß beim Lesen und Bewusstmachen!

@@ -69,6 +69,12 @@ export default function Page() {
                             Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
                         </p>
                     </div>
+                    <div className="mt-5">
+                        <h2 className="text-orange-600 text-xl font-semibold">Förderung:</h2>
+                        <p className="text-sm text-gray-600">
+                            Gefördert durch die Freie und Hansestadt Hamburg, Behörde für Kultur und Medien.
+                        </p>
+                    </div>
                 </div>
                 <Footer />
             </main>

@@ -22,7 +22,7 @@ export default function Page() {
                         Material
                     </h1>
                     <p className="text-gray-600 text-left text-md p-3">
-                        Auf der Seite Material bekommt ihr eine Vielzahl von Materialsammlungen rund um das Thema (Post-) Kolonialismus und Dekolonisierung. In den Rubriken Bildungsmaterial, Videos, Literatur und Podcasts haben wir für euch zahlreiche verlinkte Ressourcen zusammengestellt, um euch bei der weiteren Auseinandersetzung mit dem Thema zu unterstützen. Die Auswahl an Materialien wird stetig erweitert, sodass ihr regelmäßig neue Entdeckungen machen könnt. Wenn ihr eigene Empfehlungen habt, zögert nicht, sie mit uns zu teilen - wir nehmen gerne empfohlene oder von euch erstellte Materialien in unsere Sammlung auf.
+                        Auf der Seite Material bekommt Ihr eine Vielzahl von Materialsammlungen rund um das Thema (Post-) Kolonialismus und Dekolonisierung. In den Rubriken Bildungsmaterial, Videos, Literatur und Podcasts haben wir für Euch zahlreiche verlinkte Ressourcen zusammengestellt, um Euch bei der weiteren Auseinandersetzung mit dem Thema zu unterstützen. Die Auswahl an Materialien wird stetig erweitert, sodass Ihr regelmäßig neue Entdeckungen machen könnt. Wenn Ihr eigene Empfehlungen habt, zögert nicht, sie mit uns zu teilen - wir nehmen gerne empfohlene oder von Euch erstellte Materialien in unsere Sammlung auf.
                     </p>
                 </div>
                 <Category />

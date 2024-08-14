@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
+import { de } from "date-fns/locale";
 import { PortableText } from "@portabletext/react";
 import { FaUserCircle } from "react-icons/fa";
 import { client } from "@/app/lib/sanityClient";
@@ -24,7 +25,8 @@ const fetchPostData = async (slug: string) => {
                 },
                 alt,
                 description,
-                source
+                source,
+                photographer
             },
             content,
             "tags": tags[]->title,
@@ -42,7 +44,7 @@ export default async function ThemenArticle({ params }: { params: { slug: string
 
     // Ensure tags is an array
     const tagsArray = Array.isArray(data.tags) ? data.tags : [];
-    const formattedDate = format(new Date(data.date), "EEE, MMMM dd yyyy");
+    const formattedDate = format(new Date(data.date), "dd. MMMM yyyy", { locale: de });
 
     return (
         <div className="relative bg-cover bg-no-repeat bg-local" style={{ backgroundImage: `url("/themen-bg.png")` }}>
@@ -64,7 +66,7 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                                     <div key={index} className="flex items-center m-2">
                                         <FaUserCircle className="text-orange-500 mr-2" size={24} />
                                         <div className="flex flex-col items-start">
-                                            <p className="text-xs">By {author.name}</p>
+                                            <p className="text-xs">Von: {author.name}</p>
                                             <p className="text-xs text-gray-500">{author.specialty}</p>
                                         </div>
                                     </div>
@@ -98,11 +100,18 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                     {data.titleImage.source && (
                         <div className="text-center text-gray-500 text-xs mb-5">
                             <p>
-                                Source:{" "}
+                                Quelle:{" "}
                                 <Link className="text-orange-500" href={data.titleImage.source} rel="noopener noreferrer" target="_blank">
                                     {data.titleImage.source}
                                 </Link>
                             </p>
+                        </div>
+                    )}
+
+                    {/* Blog Image Photographer */}
+                    {data.titleImage.photographer && (
+                        <div className="text-center text-gray-700 text-xs mb-5">
+                            <p className="font-semibold">Fotografiert von: <i className="text-orange-500">{data.titleImage.photographer}</i></p>
                         </div>
                     )}
 
