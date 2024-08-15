@@ -57,24 +57,6 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                         {data.title}
                     </h1>
 
-                    {/* Blog Date and Author */}
-                    {/*<div className="text-center text-gray-500  mb-5">*/}
-                    {/*    <p>{formattedDate}</p>*/}
-                    {/*    {data.authors?.length > 0 && (*/}
-                    {/*        <div className="flex flex-wrap items-center justify-center mt-5">*/}
-                    {/*            {data.authors.map((author, index) => (*/}
-                    {/*                <div key={index} className="flex items-center m-2">*/}
-                    {/*                    <FaUserCircle className="text-orange-500 mr-2" size={48} />*/}
-                    {/*                    <div className="flex flex-col items-start">*/}
-                    {/*                        <p className="text-xs">Von: {author.name}</p>*/}
-                    {/*                        <p className="text-xs text-gray-500">{author.specialty}</p>*/}
-                    {/*                    </div>*/}
-                    {/*                </div>*/}
-                    {/*            ))}*/}
-                    {/*        </div>*/}
-                    {/*    )}*/}
-                    {/*</div>*/}
-
                     <div className="text-center text-gray-500 mb-5">
                         <p>{formattedDate}</p>
                         {data.authors?.length > 0 && (
@@ -91,7 +73,6 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                             </div>
                         )}
                     </div>
-
 
                     {/* Blog Image */}
                     <div className="flex items-center justify-center mt-10 mb-5 max-w-screen-xl">

@@ -18,7 +18,7 @@ export default function Page() {
             <main className="p-6 relative z-10">
                 <NavBar />
                 <div className="bg-white p-5 m-1 rounded-xl shadow-lg items-center justify-center mt-10">
-                    <h1 className="text-orange-500 text-3xl font-bold p-3">
+                    <h1 className="text-orange-500 text-3xl sm:text-lg font-bold p-3">
                         Material
                     </h1>
                     <p className="text-gray-600 text-left text-md p-3">
