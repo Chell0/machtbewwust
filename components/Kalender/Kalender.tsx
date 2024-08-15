@@ -50,7 +50,9 @@ export default function Kalender() {
     return (
         <div className="p-4">
             <div className="bg-white p-3 m-1 rounded-xl shadow-lg mt-10">
-                <h1 className="text-orange-500 text-3xl font-bold p-3">Veranstaltungskalender</h1>
+                <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-2">
+                    Veranstaltungskalender
+                </h1>
                 <p className="text-gray-600 text-left text-md p-3">
                     An dieser Stelle könnt Ihr eine Vielzahl an aktuellen Veranstaltungsterminen entdecken, die sich intensiv mit den Themen um (Post-) Kolonialismus und Dekolonisierung befassen.{" "}
                     <Link
@@ -82,7 +84,7 @@ export default function Kalender() {
                 >
                     <div className="flex justify-between items-center">
                         <div>
-                            <div className="text-xl font-bold">{event.title}</div>
+                            <div className="text-xl sm:text-lg font-semibold">{event.title}</div>
                             <div className="text-sm text-gray-800">{event.type}</div>
                             <div className="text-sm">
                                 {event.date}, {event.time}
