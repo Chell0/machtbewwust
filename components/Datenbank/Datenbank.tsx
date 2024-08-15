@@ -50,7 +50,7 @@ export default function Datenbank() {
     return (
         <div className="container mx-auto mt-20">
             <div className="bg-white p-5 rounded-xl shadow-lg mt-10">
-                <h1 className="text-orange-500 text-3xl font-bold p-3">Datenbank</h1>
+                <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-3">Datenbank</h1>
                 <p className="text-gray-600 text-left text-md p-3">
                     Hier habt Ihr die Möglichkeit, in unserer umfassenden Datenbank nach Akteur:innen und Institutionen zu suchen, die sich aktiv mit den Themen um (Post-) Kolonialismus und Dekolonisierung auseinandersetzen. Zudem könnt Ihr hier Speaker:innen und Bildungsreferent:innen aus Hamburg finden, die sich mit großer Expertise und Leidenschaft mit diesen wichtigen Themen beschäftigen. Diese Datenbank wird regelmäßig aktualisiert, um euch stets aktuelle Informationen zu liefern.
                     Wenn auch Ihr als Institution oder Einzelperson in dieser Datenbank genannt werden möchtet, könnt Ihr das entsprechende{" "}
@@ -76,7 +76,7 @@ export default function Datenbank() {
                     <option value="">Alle Kategorien</option>
                     {categories.map((category) => (
                         <option
-                            className="text-orange-500 text-xs font-semibold py-5 bg-white"
+                            className="text-orange-500 text-md font-semibold py-5 bg-white"
                             key={category}
                             value={category}
                         >

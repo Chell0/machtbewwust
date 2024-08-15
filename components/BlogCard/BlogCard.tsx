@@ -18,7 +18,7 @@ export default function BlogCard({ card }: { card: ThemenCard }) {
                 />
             </div>
             <div className="p-5">
-                <h3 className="text-orange-500 text-lg font-semibold mb-3 hover:underline">
+                <h3 className="text-orange-500 text-lg sm:text-sm font-semibold mb-3 hover:underline">
                     <Link href={`/themen/${currentSlug}`}>{title}</Link>
                 </h3>
                 <p className="text-gray-600 text-xs mb-2 line-clamp-4">{smallDescription}</p>

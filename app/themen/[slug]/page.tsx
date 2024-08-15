@@ -53,21 +53,20 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                 <div className="container max-w-screen-lg mx-auto mt-20 bg-white p-10 rounded-lg shadow-2xl">
 
                     {/* Blog Title */}
-                    <h1 className="mb-10 text-center text-orange-500 text-3xl font-bold uppercase leading-8 tracking-wide">
+                    <h1 className="mb-10 text-center text-orange-500 text-xl sm:text-md md:text-lg lg:text-xl font-bold uppercase leading-8 tracking-wide">
                         {data.title}
                     </h1>
 
-                    {/* Blog Date and Author */}
                     <div className="text-center text-gray-500 mb-5">
                         <p>{formattedDate}</p>
                         {data.authors?.length > 0 && (
-                            <div className="flex flex-wrap items-center justify-center mt-5">
+                            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center mt-5">
                                 {data.authors.map((author, index) => (
-                                    <div key={index} className="flex items-center m-2">
-                                        <FaUserCircle className="text-orange-500 mr-2" size={24} />
-                                        <div className="flex flex-col items-start">
-                                            <p className="text-xs">Von: {author.name}</p>
-                                            <p className="text-xs text-gray-500">{author.specialty}</p>
+                                    <div key={index} className="flex items-center m-2 w-full sm:w-auto">
+                                        <FaUserCircle className="text-orange-500 mr-2" size={36}/>
+                                        <div className="flex flex-col items-start text-left">
+                                            <p className="text-xs sm:text-sm">Von: {author.name}</p>
+                                            <p className="text-xs sm:text-sm text-gray-500">{author.specialty}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -85,7 +84,7 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                             priority
                             className="object-cover object-center rounded shadow-xl"
                             quality={100}
-                            style={{ maxHeight: `480px` }}
+                            style={{maxHeight: `480px`}}
                         />
                     </div>
 
@@ -101,7 +100,8 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                         <div className="text-center text-gray-500 text-xs mb-5">
                             <p>
                                 Quelle:{" "}
-                                <Link className="text-orange-500" href={data.titleImage.source} rel="noopener noreferrer" target="_blank">
+                                <Link className="text-orange-500" href={data.titleImage.source}
+                                      rel="noopener noreferrer" target="_blank">
                                     {data.titleImage.source}
                                 </Link>
                             </p>
@@ -111,25 +111,28 @@ export default async function ThemenArticle({ params }: { params: { slug: string
                     {/* Blog Image Photographer */}
                     {data.titleImage.photographer && (
                         <div className="text-center text-gray-700 text-xs mb-5">
-                            <p className="font-semibold">Fotografiert von: <i className="text-orange-500">{data.titleImage.photographer}</i></p>
+                            <p className="font-semibold">Fotografiert von: <i
+                                className="text-orange-500">{data.titleImage.photographer}</i></p>
                         </div>
                     )}
 
                     {/* Blog Content */}
-                    <div className="max-w-screen-lg mx-auto mt-20 prose prose-sm prose-stone prose-headings:text-2xl prose-headings:text-orange-500 prose-headings:font-semibold prose-a:text-orange-500 prose-a:target:_blank prose-a:rel:noreferrer">
-                        <PortableText value={data.content} />
+                    <div
+                        className="max-w-screen-lg mx-auto mt-20 prose prose-sm prose-stone prose-headings:text-2xl prose-headings:text-orange-500 prose-headings:font-semibold prose-a:text-orange-500 prose-a:target:_blank prose-a:rel:noreferrer">
+                        <PortableText value={data.content}/>
                     </div>
 
                     {/* Tags */}
                     <div className="mt-10 flex flex-wrap justify-center gap-2">
                         {tagsArray.map((tag, index) => (
-                            <span key={index} className="text-xs italic px-2 py-1 bg-orange-500 text-white rounded-md shadow-xl">
+                            <span key={index}
+                                  className="text-xs italic px-2 py-1 bg-orange-500 text-white rounded-md shadow-xl">
                                 #{tag}
                             </span>
                         ))}
                     </div>
                 </div>
-                <Footer />
+                <Footer/>
             </main>
         </div>
     );

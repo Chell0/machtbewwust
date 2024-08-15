@@ -5,20 +5,19 @@ import Image from "next/image";
 
 export default function Page() {
     return (
-        <div className="relative bg-cover bg-no-repeat max-h-full max-w-[1440px]">
+        <div className="relative bg-no-repeat max-h-full max-w-[1440px]">
             <Image
                 src="/material-bg.png"
                 alt="Background"
-                layout="fill"
-                objectFit="cover"
+                fill
                 quality={100}
                 priority
-                className="z-0"
+                className="z-0 bg-cover"
             />
             <main className="p-6 relative z-10">
                 <NavBar />
                 <div className="bg-white p-5 m-1 rounded-xl shadow-lg items-center justify-center mt-10">
-                    <h1 className="text-orange-500 text-3xl font-bold p-3">
+                    <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-3">
                         Material
                     </h1>
                     <p className="text-gray-600 text-left text-md p-3">
