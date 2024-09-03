@@ -1,9 +1,14 @@
-import Category from "@/components/Category/Category";
-import Footer from "@/components/Footer/Footer";
-import NavBar from "@/components/NavBar/NavBar";
+"use client";
+
 import Image from "next/image";
+import Category from "@/components/MaterialSection/MaterialSection";
+import Footer from "@/components/Footer/Footer";
+import MaterialContent from "@/components/MaterialContent/MaterialContent";
+import NavBar from "@/components/NavBar/NavBar";
+
 
 export default function Page() {
+
     return (
         <div className="relative bg-no-repeat max-h-full max-w-[1440px]">
             <Image
@@ -16,14 +21,7 @@ export default function Page() {
             />
             <main className="p-6 relative z-10">
                 <NavBar />
-                <div className="bg-white p-5 m-1 rounded-xl shadow-lg items-center justify-center mt-10">
-                    <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-3">
-                        Material
-                    </h1>
-                    <p className="text-gray-600 text-left text-md p-3">
-                        Auf der Seite Material bekommt Ihr eine Vielzahl von Materialsammlungen rund um das Thema (Post-) Kolonialismus und Dekolonisierung. In den Rubriken Bildungsmaterial, Videos, Literatur und Podcasts haben wir für Euch zahlreiche verlinkte Ressourcen zusammengestellt, um Euch bei der weiteren Auseinandersetzung mit dem Thema zu unterstützen. Die Auswahl an Materialien wird stetig erweitert, sodass Ihr regelmäßig neue Entdeckungen machen könnt. Wenn Ihr eigene Empfehlungen habt, zögert nicht, sie mit uns zu teilen - wir nehmen gerne empfohlene oder von Euch erstellte Materialien in unsere Sammlung auf.
-                    </p>
-                </div>
+                <MaterialContent />
                 <Category />
                 <Footer />
             </main>
