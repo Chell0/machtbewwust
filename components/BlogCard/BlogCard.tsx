@@ -13,7 +13,7 @@ export default function BlogCard({ card }: { card: ThemenCard }) {
                 <Image
                     src={urlFor(titleImage).url()}
                     alt={title}
-                    layout="fill"
+                    fill
                     className="object-cover rounded-t-lg"
                 />
             </div>

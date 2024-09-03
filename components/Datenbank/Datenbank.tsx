@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { PortableText } from "@portabletext/react"
 import { client } from "@/app/lib/sanityClient";
+import { fetchDatenbankAbout } from "@/app/lib/fetchDatenbankAbout";
 import { Venue } from "@/app/lib/interface";
 
 // Fetch All Venues
@@ -22,48 +24,53 @@ export default function Datenbank() {
     const [loading, setLoading] = useState<boolean>(true);
     const [categories, setCategories] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [datenbankAbout, setDatenbankAbout] = useState<{ title: string; body: any[] }>({ title: "", body: [] });
 
     useEffect(() => {
-        const getVenues = async () => {
+        (async () => {
             const data = await fetchVenues();
+            const about = await fetchDatenbankAbout();
             data.sort((a, b) => a.name.localeCompare(b.name));
             setVenues(data);
             setFilteredVenues(data);
+            setDatenbankAbout(about);
 
             const uniqueCategories = Array.from(new Set(data.flatMap(venue => venue.kategorien)));
             setCategories(uniqueCategories);
             setLoading(false);
-        };
-        getVenues();
+        })();
     }, []);
 
     const handleCategoryChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
         const category = event.target.value;
         setSelectedCategory(category);
 
-        setFilteredVenues(category === ""
-            ? venues
-            : venues.filter(venue => venue.kategorien.includes(category))
-        );
+        setFilteredVenues(category === "" ? venues : venues.filter(venue => venue.kategorien.includes(category)));
     }, [venues]);
 
     return (
         <div className="container mx-auto mt-20">
             <div className="bg-white p-5 rounded-xl shadow-lg mt-10">
-                <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-3">Datenbank</h1>
-                <p className="text-gray-600 text-left text-md p-3">
-                    Hier habt Ihr die Möglichkeit, in unserer umfassenden Datenbank nach Akteur:innen und Institutionen zu suchen, die sich aktiv mit den Themen um (Post-) Kolonialismus und Dekolonisierung auseinandersetzen. Zudem könnt Ihr hier Speaker:innen und Bildungsreferent:innen aus Hamburg finden, die sich mit großer Expertise und Leidenschaft mit diesen wichtigen Themen beschäftigen. Diese Datenbank wird regelmäßig aktualisiert, um euch stets aktuelle Informationen zu liefern.
-                    Wenn auch Ihr als Institution oder Einzelperson in dieser Datenbank genannt werden möchtet, könnt Ihr das entsprechende{" "}
-                    <Link
-                        href="https://cloud.hamburg.global/index.php/apps/forms/s/XT2M4r4gyyGEryCTpiW6PNb7"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-orange-500 font-semibold"
-                    >
-                        Formular
-                    </Link>{" "}
-                    ausfüllen. Ossara e.V. übernimmt keine Verantwortung für den vermittelten Inhalt der Speaker:innen, noch stellen die Menschen in irgendeiner Weise die offizielle Position von Ossara e.V. dar.
-                </p>
+                <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-3">{datenbankAbout?.title || "Loading..."}</h1>
+                <div className="text-gray-600 text-left text-md p-3">
+                    <PortableText
+                        value={datenbankAbout.body}
+                        components={{
+                            marks: {
+                                link: ({ children, value }) => (
+                                    <Link
+                                        href={value.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-orange-500 font-semibold"
+                                    >
+                                        {children}
+                                    </Link>
+                                ),
+                            },
+                        }}
+                    />
+                </div>
             </div>
 
             {/* Search Box */}
