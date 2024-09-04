@@ -1,70 +1,90 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import { differenceInDays, parseISO } from "date-fns";
 import { client } from "@/app/lib/sanityClient";
 import { Event } from "@/app/lib/interface";
+import { fetchEventAbout } from "@/app/lib/fetchEventAbout";
+import { PortableText } from "@portabletext/react";
 
-export const revalidate = 30;
+
+export const revalidate = 30; // Revalidate at most every 30 seconds
 
 export default function Kalender() {
     const [events, setEvents] = useState<Event[]>([]);
     const [openEventIndex, setOpenEventIndex] = useState<number | null>(null);
     const [filter, setFilter] = useState<string>("");
+    const [eventAbout, setEventAbout] = useState<{ title: string; body: any[] }>({ title: "", body: [] });
 
-    useEffect(() => {
-        const fetchEvents = async () => {
+    const fetchEvents = useCallback(async () => {
+        try {
             const eventsData = await client.fetch(
-                `*[_type == "event"] | order(date asc) {
-                    date,
-                    time,
-                    title,
-                    description,
-                    type,
-                    detailsLink
-                }`
+                `*[_type == "event"] | order(date asc) { date, time, title, description, type, detailsLink }`
             );
 
             const currentDate = new Date();
-            const filteredEvents = eventsData.filter((event: Event) => {
+            return eventsData.filter((event: Event) => {
                 const eventDate = parseISO(event.date);
                 return differenceInDays(eventDate, currentDate) >= 0;
             });
-
-            setEvents(filteredEvents);
-        };
-
-        fetchEvents();
+        } catch (error) {
+            console.error("Failed to fetch events:", error);
+            return [];
+        }
     }, []);
 
-    const toggleEvent = (index: number) => {
-        setOpenEventIndex(openEventIndex === index ? null : index);
+    useEffect(() => {
+        const fetchData = async () => {
+            const [filteredEvents, about] = await Promise.all([
+                fetchEvents(),
+                fetchEventAbout(),
+            ]);
+
+            setEvents(filteredEvents);
+            setEventAbout(about);
+        };
+
+        fetchData().then();
+    }, [fetchEvents]);
+
+    const handleToggleEvent = (index: number) => {
+        setOpenEventIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
-    const filteredEvents = events.filter((event) =>
-        event.title.toLowerCase().includes(filter.toLowerCase())
+    const filteredEvents = useMemo(
+        () => events.filter((event) =>
+            event.title.toLowerCase().includes(filter.toLowerCase())
+        ),
+        [events, filter]
     );
 
     return (
         <div className="p-4">
             <div className="bg-white p-3 m-1 rounded-xl shadow-lg mt-10">
                 <h1 className="text-orange-500 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold p-2">
-                    Veranstaltungskalender
+                    {eventAbout?.title || "Loading..."}
                 </h1>
-                <p className="text-gray-600 text-left text-md  p-3">
-                    An dieser Stelle könnt Ihr eine Vielzahl an aktuellen Veranstaltungsterminen entdecken, die sich intensiv mit den Themen um (Post-) Kolonialismus und Dekolonisierung befassen.{" "}
-                    <Link
-                        href="https://cloud.hamburg.global/index.php/apps/forms/s/j7kFXRTtALSMM4DfEEJt6Faa"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-orange-500 font-semibold"
-                    >
-                        Hier
-                    </Link>{" "}
-                    könnt Ihr eure Veranstaltung teilen.
-                </p>
+                <div className="text-gray-600 text-left text-md p-3">
+                    <PortableText
+                        value={eventAbout.body}
+                        components={{
+                            marks: {
+                                link: ({ children, value }) => (
+                                    <Link
+                                        href={value.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-orange-500 font-semibold"
+                                    >
+                                        {children}
+                                    </Link>
+                                ),
+                            },
+                        }}
+                    />
+                </div>
             </div>
 
             {/* Search bar */}
@@ -90,7 +110,7 @@ export default function Kalender() {
                                 {event.date}, {event.time}
                             </div>
                         </div>
-                        <button onClick={() => toggleEvent(index)}>
+                        <button onClick={() => handleToggleEvent(index)}>
                             {openEventIndex === index ? (
                                 <ChevronUpIcon className="h-6 w-6 text-white" />
                             ) : (
