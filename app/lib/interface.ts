@@ -1,3 +1,8 @@
+// AboutData
+export interface AboutData {
+	content: string;
+}
+
 // BlogCard
 export interface ThemenCard {
 	tags: any;

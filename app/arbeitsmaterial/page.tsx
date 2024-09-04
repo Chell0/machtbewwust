@@ -5,9 +5,9 @@ import MaterialCards from "@/components/MaterialCards/MaterialCards";
 import NavBar from "@/components/NavBar/NavBar";
 
 // Fetch materials from sanity
-async function fetchCategoryMaterials() {
+async function fetchMaterialSectionMaterials() {
     const query = `
-  *[_type == "category" && title == "Arbeitsmaterial"] {
+  *[_type == "material_section" && title == "Arbeitsmaterial"] {
     title,
       "materials": *[_type == "material" && references(^._id)] {
         title,
@@ -25,14 +25,11 @@ async function fetchCategoryMaterials() {
 }
 
 export default async function Page() {
-    const materials: MaterialCard[] = await fetchCategoryMaterials();
+    const materials: MaterialCard[] = await fetchMaterialSectionMaterials();
 
     return (
-        <div
-            className="relative bg-cover bg-no-repeat max-h-full max-w-[1440px]"
-            style={{ backgroundImage: `url("/material-bg.png")` }}
-        >
-            <main className="p-6">
+        <div className="relative bg-cover bg-no-repeat max-h-full max-w-[1440px]" style={{ backgroundImage: `url("/material-bg.png")` }}>
+            <main className="p-6 relative z-10">
                 <NavBar />
                 <div className="w-full flex items-center justify-center mt-28 sm:px-2">
                     <div className="bg-white shadow-lg rounded-xl max-w-lg sm:px-4">

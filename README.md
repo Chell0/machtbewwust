@@ -102,8 +102,8 @@ The website will be available at `http://localhost:3000`.
 |   |   |-- Banner.tsx
 │   └── /BlogCard
 |   |   |-- BlogCard.tsx
-|   |-- /Category
-|   |   |-- Category.tsx
+|   |-- /MaterialSection
+|   |   |-- MaterialSection.tsx
 |   |-- /Datenbank
 |   |   |-- Datenbank.tsx
 |   |-- /Footer
@@ -168,11 +168,11 @@ The website will be available at `http://localhost:3000`.
 ├── /sanity
 │   ├── schemas
 │   │   ├── author.ts
-│   │   └── category.ts
-|   |   |-- datenbank.ts
+│   │   └── datenbank.ts
 |   |   |-- event.ts
 |   |   |-- index.ts
 |   |   |-- material.ts
+|   |   |-- materialSection.ts
 |   |   |-- tag.ts
 |   |   |-- themen.ts
 │   └── sanity.cli.ts
