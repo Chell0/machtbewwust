@@ -1,16 +1,17 @@
-import { describe, expect, test } from "@jest/globals";
-import '@testing-library/jest-dom';
-import { render, screen } from "@testing-library/react";
 import Banner from "@/components/Banner/Banner";
-
+import { describe, expect, it } from "@jest/globals";
+import { render, screen } from "@testing-library/react";
 
 describe("Banner Component", () => {
-    test("renders the banner image with correct src", () => {
-        render(<Banner />);
+	it("renders the banner image with correct src", () => {
+		render(<Banner />);
 
-        const bannerImage = screen.getByAltText("Banner Image");
+		const bannerImage = screen.getByAltText("Banner Image");
 
-        // Check if the image is present
-        expect(bannerImage).toHaveAttribute("src", expect.stringContaining("/_next/image?url=%2Fmachtbewusst.png"));
-    });
+		// Check if the image is present
+		expect(bannerImage).toHaveAttribute(
+			"src",
+			expect.stringContaining("/_next/image?url=%2Fmachtbewusst.png")
+		);
+	});
 });

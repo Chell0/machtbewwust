@@ -75,7 +75,7 @@ export default function Kalender() {
                                     <Link
                                         href={value.href}
                                         target="_blank"
-                                        rel="noopener noreferrer"
+                                        rel="noopener no-referrer"
                                         className="text-orange-500 font-semibold"
                                     >
                                         {children}

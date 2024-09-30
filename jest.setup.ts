@@ -1,15 +1,17 @@
+import "@testing-library/jest-dom/jest-globals";
 import "@testing-library/jest-dom";
-import * as dotenv from 'dotenv';
-dotenv.config({ path: '.env.local' });
+import * as dotenv from "dotenv";
 
-Object.defineProperty(window, 'matchMedia', {
+dotenv.config({ path: ".env.local" });
+
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(), // Deprecated
-    removeListener: jest.fn(), // Deprecated
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),
@@ -17,8 +19,8 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Suppress the Sanity warning
-jest.mock('@sanity/client', () => {
-  const originalModule = jest.requireActual('@sanity/client');
+jest.mock("@sanity/client", () => {
+  const originalModule = jest.requireActual("@sanity/client");
   return {
     ...originalModule,
     createClient: jest.fn(() => ({

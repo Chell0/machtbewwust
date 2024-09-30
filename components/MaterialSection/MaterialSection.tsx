@@ -7,7 +7,7 @@ import {client} from "@/app/lib/sanityClient";
 import {MaterialCategory} from "@/app/lib/interface";
 
 // Fetch All Material Sections
-async function fetchMaterialSections() {
+async function fetchMaterialSections(): Promise<MaterialCategory[]> {
     const query = `
     *[_type == "material_section"] | order(title asc) {
         title,
@@ -20,7 +20,7 @@ async function fetchMaterialSections() {
     }`;
 
     try {
-        return await client.fetch(query);
+        return await client.fetch<MaterialCategory[]>(query);
     } catch (error) {
         console.error("Failed to fetch material sections:", error);
         return [];
